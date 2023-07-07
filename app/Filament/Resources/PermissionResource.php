@@ -2,34 +2,30 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ImageResource\Pages;
-use App\Filament\Resources\ImageResource\RelationManagers;
-use App\Models\Image;
+use App\Filament\Resources\PermissionResource\Pages;
+use App\Filament\Resources\PermissionResource\RelationManagers;
 use Filament\Forms;
-use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Filament\Tables\Columns\TextInputColumn;
+use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Tables\Columns\ImageColumn;
-use Filament\Tables\Columns\TextColumn;
+use Spatie\Permission\Models\Permission;
 
-class ImageResource extends Resource
+class PermissionResource extends Resource
 {
-    protected static ?string $model = Image::class;
+    protected static ?string $model = Permission::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-camera';
+    protected static ?string $navigationIcon = 'heroicon-o-collection';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                TextInput::make('product_id'),
-                FileUpload::make('images')
+                TextInput::make('name')->unique()
             ]);
     }
 
@@ -38,11 +34,7 @@ class ImageResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('id'),
-                TextColumn::make('product_id'),
-                ImageColumn::make('images')
-
-
-
+                TextColumn::make('name')->searchable()
             ])
             ->filters([
                 //
@@ -65,9 +57,9 @@ class ImageResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListImages::route('/'),
-            'create' => Pages\CreateImage::route('/create'),
-            'edit' => Pages\EditImage::route('/{record}/edit'),
+            'index' => Pages\ListPermissions::route('/'),
+            'create' => Pages\CreatePermission::route('/create'),
+            'edit' => Pages\EditPermission::route('/{record}/edit'),
         ];
     }
 }

@@ -22,8 +22,10 @@ use Filament\Tables\Columns\TextColumn;
 class ProductResource extends Resource
 {
     protected static ?string $model = Product::class;
+    protected static ?string $navigationGroup = 'Shop';
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+
+    protected static ?string $navigationIcon = 'heroicon-o-sparkles';
 
     public static function form(Form $form): Form
     {
@@ -31,8 +33,8 @@ class ProductResource extends Resource
             ->schema([
 
                 Select::make('category_id')
-                ->label('Category')
-                    ->options(Category::pluck('category_name','id')->all()),
+                    ->label('Category')
+                    ->options(Category::pluck('category_name', 'id')->all()),
 
                 // TextInput::make('category_id'),
                 TextInput::make('product_name'),
@@ -47,7 +49,7 @@ class ProductResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('category_id'),
-                TextColumn::make('product_name'),
+                TextColumn::make('product_name')->searchable(),
                 TextColumn::make('product_size'),
                 TextColumn::make('Product_price'),
                 TextColumn::make('product_desc'),
@@ -69,7 +71,7 @@ class ProductResource extends Resource
     public static function getRelations(): array
     {
         return [
-            RelationManagers\ProductsRelationManager::class,
+            RelationManagers\ImagesRelationManager::class,
         ];
     }
 

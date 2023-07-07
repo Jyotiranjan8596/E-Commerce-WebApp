@@ -9,10 +9,11 @@ use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Columns\ImageColumn;
 
-class ProductsRelationManager extends RelationManager
+class ImagesRelationManager extends RelationManager
 {
-    protected static string $relationship = 'products';
+    protected static string $relationship = 'images';
 
     protected static ?string $recordTitleAttribute = 'id';
 
@@ -30,7 +31,7 @@ class ProductsRelationManager extends RelationManager
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id'),
+                Tables\Columns\ImageColumn::make('images'),
             ])
             ->filters([
                 //
@@ -45,5 +46,5 @@ class ProductsRelationManager extends RelationManager
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
-    }    
+    }
 }

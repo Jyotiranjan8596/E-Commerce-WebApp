@@ -3,31 +3,46 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\UserResource\Pages;
+use App\Filament\Resources\UserResource\Pages\CreateUser;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
+use Filament\Resources\Pages\Page;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Filament\Tables\Columns\TextInputColumn;
+use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
+    protected static ?string $navigationGroup = 'Shop';
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-user-group';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 TextInput::make('name'),
-               TextInput::make('email'),
-               TextInput::make('password')
+                TextInput::make('email'),
+                TextInput::make('password')
+                    ->dehydrateStateUsing(fn ($state) => Hash::make($state))
+                    ->dehydrated(fn ($state) => filled($state))
+                    ->required(fn (Page $livewire) => ($livewire instanceof CreateUser)),
+                Select::make('roles')
+                    ->multiple()
+                    ->relationship('roles', 'name')->preload(),
+                // Select::make('permissions')
+                //     ->multiple()
+                //     ->relationship('permissions', 'name')->preload()
             ]);
     }
 
@@ -35,13 +50,11 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                TextInputColumn::make('id'),
-                TextInputColumn::make('name'),
-                TextInputColumn::make('email'),
-                TextInputColumn::make('password'),
-                TextInputColumn::make('email_verified_at'),
-                TextInputColumn::make('created_at'),
-                TextInputColumn::make('updated_at')
+                TextColumn::make('id'),
+                TextColumn::make('name'),
+                TextColumn::make('email'),
+                // TextColumn::make('roles'),
+                TextColumn::make('created_at')
             ])
             ->filters([
                 //

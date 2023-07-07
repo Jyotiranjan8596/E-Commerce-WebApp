@@ -2,34 +2,34 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ImageResource\Pages;
-use App\Filament\Resources\ImageResource\RelationManagers;
-use App\Models\Image;
+use App\Filament\Resources\RoleResource\Pages;
+use App\Filament\Resources\RoleResource\RelationManagers;
 use Filament\Forms;
-use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Filament\Tables\Columns\TextInputColumn;
+use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Tables\Columns\ImageColumn;
-use Filament\Tables\Columns\TextColumn;
+use Spatie\Permission\Models\Role;
 
-class ImageResource extends Resource
+class RoleResource extends Resource
 {
-    protected static ?string $model = Image::class;
+    protected static ?string $model = Role::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-camera';
+    protected static ?string $navigationIcon = 'heroicon-o-collection';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                TextInput::make('product_id'),
-                FileUpload::make('images')
+                TextInput::make('name')->unique(ignoreRecord:true),
+                Select::make('permissions')
+                    ->multiple()
+                    ->relationship('permissions', 'name')->preload()
             ]);
     }
 
@@ -37,12 +37,8 @@ class ImageResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('id'),
-                TextColumn::make('product_id'),
-                ImageColumn::make('images')
-
-
-
+                TextColumn::make('id')->sortable(),
+                TextColumn::make('name')->searchable()
             ])
             ->filters([
                 //
@@ -65,9 +61,14 @@ class ImageResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListImages::route('/'),
-            'create' => Pages\CreateImage::route('/create'),
-            'edit' => Pages\EditImage::route('/{record}/edit'),
+            'index' => Pages\ListRoles::route('/'),
+            'create' => Pages\CreateRole::route('/create'),
+            'edit' => Pages\EditRole::route('/{record}/edit'),
         ];
     }
+
+    public static function getEloquentQuery(): Builder
+{
+    return parent::getEloquentQuery()->where('name','!=','admin');
+}
 }

@@ -19,6 +19,7 @@ class AddressResource extends Resource
 {
     protected static ?string $model = Address::class;
 
+
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
     public static function form(Form $form): Form
