@@ -11,6 +11,7 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\TextInputColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -35,12 +36,12 @@ class CartResource extends Resource
     {
         return $table
             ->columns([
-                TextInputColumn::make('id'),
-                TextInputColumn::make('userId'),
-                TextInputColumn::make('product_id'),
-                TextInputColumn::make('quantity'),
-                TextInputColumn::make('created_at'),
-                TextInputColumn::make('updated_at')
+                TextColumn::make('id'),
+                TextColumn::make('userId'),
+                TextColumn::make('product_id'),
+                TextColumn::make('quantity'),
+                TextColumn::make('created_at'),
+                TextColumn::make('updated_at')
             ])
             ->filters([
                 //

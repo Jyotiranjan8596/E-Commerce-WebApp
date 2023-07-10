@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\RoleResource\Pages;
 use App\Filament\Resources\RoleResource\RelationManagers;
+use App\Models\Role;
 use Filament\Forms;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -14,7 +15,6 @@ use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Spatie\Permission\Models\Role;
 
 class RoleResource extends Resource
 {
@@ -26,7 +26,7 @@ class RoleResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('name')->unique(ignoreRecord:true),
+                TextInput::make('name')->unique(ignoreRecord: true),
                 Select::make('permissions')
                     ->multiple()
                     ->relationship('permissions', 'name')->preload()
@@ -68,7 +68,7 @@ class RoleResource extends Resource
     }
 
     public static function getEloquentQuery(): Builder
-{
-    return parent::getEloquentQuery()->where('name','!=','admin');
-}
+    {
+        return parent::getEloquentQuery()->where('name', '!=', 'admin');
+    }
 }

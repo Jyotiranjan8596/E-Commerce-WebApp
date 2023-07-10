@@ -24,12 +24,16 @@ class ImageResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-camera';
 
+    protected $casts = [
+        'images' => 'array',
+    ];
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 TextInput::make('product_id'),
-                FileUpload::make('images')
+                FileUpload::make('images')->multiple()
             ]);
     }
 
@@ -40,9 +44,6 @@ class ImageResource extends Resource
                 TextColumn::make('id'),
                 TextColumn::make('product_id'),
                 ImageColumn::make('images')
-
-
-
             ])
             ->filters([
                 //

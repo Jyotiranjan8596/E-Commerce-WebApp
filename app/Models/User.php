@@ -6,9 +6,10 @@ namespace App\Models;
 
 use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements FilamentUser
@@ -25,6 +26,7 @@ class User extends Authenticatable implements FilamentUser
         'name',
         'email',
         'password',
+        'email_verified_at'
     ];
 
     /**
@@ -50,5 +52,13 @@ class User extends Authenticatable implements FilamentUser
     public function canAccessFilament(): bool
     {
         return$this->hasRole(['admin','Maintainer']);
+    }
+
+
+    //  protected $primaryKey="id";
+
+     public function view_cart():HasMany
+     {
+        return $this->hasMany('App\Models\Cart','id');
     }
 }

@@ -12,4 +12,8 @@ class Image extends Model
         'product_id',
         'images'
     ];
+
+    protected $casts=[
+        'images'=>'array'
+    ];
 }
