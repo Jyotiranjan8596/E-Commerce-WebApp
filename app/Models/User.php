@@ -14,7 +14,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements FilamentUser
 {
-    use HasApiTokens, HasFactory, Notifiable,HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
 
     /**
@@ -49,16 +49,28 @@ class User extends Authenticatable implements FilamentUser
         'password' => 'hashed',
     ];
 
+    //access to filament
     public function canAccessFilament(): bool
     {
-        return$this->hasRole(['admin','Maintainer']);
+        return $this->hasRole(['admin', 'Maintainer']);
     }
 
+    //relation with cart
+    public function cart(): HasMany
+    {
+        return $this->hasMany('App\Models\Cart', 'userId');
+    }
 
-    //  protected $primaryKey="id";
+    //relation with address
+    public function address(): HasMany
+    {
+        return $this->hasMany('App\Models\Address', 'user_id');
+    }
 
-     public function view_cart():HasMany
-     {
-        return $this->hasMany('App\Models\Cart','id');
+    //relation with orders
+    public function orders(): HasMany
+    {
+        return $this->hasMany('App\Models\Order', 'userId');
     }
 }
+

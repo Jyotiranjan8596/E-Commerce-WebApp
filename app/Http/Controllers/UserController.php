@@ -86,15 +86,42 @@ class UserController extends Controller
 
     function show_cart($id)
     {
-
-        $cart = User::find($id)->view_cart;
-        dd($cart);
-        exit;
-            if ($cart) {
-                return response()->json(['cart' => $cart], 200);
-            }
-            else{
-                return response()->json(['error' => $cart->errors()], 422);
-            }
+        // $cart = User::find($id)->with('cart')->get();
+        // $cart= User::find($id)->cart;
+        $cart = User::where('id', $id)->with('cart')->get();
+        if ($cart) {
+            return response()->json($cart, 200);
+        } else {
+            return response()->json(['error' => $cart->errors()], 422);
+        }
     }
+
+
+    //to view the address by userId
+
+    function show_address($id)
+    {
+        // $cart = User::find($id)->with('cart')->get();
+        // $cart= User::find($id)->cart;
+        $address = User::where('id', $id)->with('address')->get();
+        if ($address) {
+            return response()->json($address, 200);
+        } else {
+            return response()->json(['error' => $address->errors()], 422);
+        }
+    }
+
+    function show_orders($id)
+    {
+        // $cart = User::find($id)->with('cart')->get();
+        // $cart= User::find($id)->cart;
+        $orders = User::where('id', $id)->with('orders')->get();
+        if ($orders) {
+            return response()->json($orders, 200);
+        } else {
+            return response()->json(['error' => $orders->errors()], 422);
+        }
+    }
+
+
 }
