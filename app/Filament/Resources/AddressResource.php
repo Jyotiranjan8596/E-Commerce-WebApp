@@ -11,6 +11,7 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\TextInputColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -37,13 +38,13 @@ class AddressResource extends Resource
     {
         return $table
             ->columns([
-                TextInputColumn::make('id'),
-                TextInputColumn::make('user_id'),
-                TextInputColumn::make('name'),
-                TextInputColumn::make('address'),
-                TextInputColumn::make('pin'),
-                TextInputColumn::make('created_at'),
-                TextInputColumn::make('updated_at')
+                TextColumn::make('id'),
+                TextColumn::make('user_id'),
+                TextColumn::make('name'),
+                TextColumn::make('address'),
+                TextColumn::make('pin'),
+                TextColumn::make('created_at'),
+                TextColumn::make('updated_at')
             ])
             ->filters([
                 //

@@ -8,6 +8,7 @@ use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WishlistController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,11 @@ Route::middleware('auth:api')->group(function () {
     Route::post("remove-quantity/{id?}", [CartController::class, 'remove_quantity']);
     Route::get("delete-cart/{id?}", [CartController::class, 'delete_cart']);
 
+
+    //for wishlist
+    Route::post("add-to-wishlist", [WishlistController::class, 'add_to_wishlist']);
+    Route::get("delete-wishlist/{id?}", [WishlistController::class, 'delete_wishlist']);
+
     //category
     Route::get("search/{name?}", [CategoryController::class, 'search_product_byCategory']);
 
@@ -52,8 +58,11 @@ Route::middleware('auth:api')->group(function () {
     Route::get("delete-order", [OrderController::class, 'delete_order']);
     //show orders by userId
     Route::get("show-order/{id?}", [UserController::class, 'show_orders']);
+
+
 });
 
+//for user
 Route::post("register", [UserController::class, 'create_User']);
 Route::post("login", [UserController::class, 'login']);
 Route::post("forgotpassword", [UserController::class, 'forgot_password']);

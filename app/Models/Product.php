@@ -13,7 +13,8 @@ class Product extends Model
         'product_name',
         'product_size',
         'Product_price',
-        'product_desc'
+        'product_desc',
+        'slug'
     ];
 
     public function images(){
