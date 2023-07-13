@@ -50,7 +50,9 @@ class AddressResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make()->label(''),
+                Tables\Actions\EditAction::make()->label(''),
+
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),

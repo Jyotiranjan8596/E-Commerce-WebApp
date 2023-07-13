@@ -29,7 +29,8 @@ class CategoryResource extends Resource
                 ->afterStateUpdated(function (Closure $set, $state) {
                     $set('slug', Str::slug($state));
                 }),
-                TextInput::make('slug')->required(),
+
+                TextInput::make('slug')->required()->disabled(),
                 // TextInput::make('parent_category'),
                 // TextInput::make('description')->required()
             ]);
@@ -40,7 +41,8 @@ class CategoryResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('id'),
-                TextColumn::make('category_name'),
+                TextColumn::make('category_name')->searchable(),
+                TextColumn::make('slug')->searchable(),
                 TextColumn::make('created_at'),
                 TextColumn::make('updated_at'),
             ])
@@ -48,7 +50,8 @@ class CategoryResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make()->label(''),
+                Tables\Actions\EditAction::make()->label(''),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),

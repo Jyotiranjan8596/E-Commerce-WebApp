@@ -13,6 +13,8 @@ class Address extends Model
         'user_id',
         'name',
         'address',
-        'pin'
+        'pin',
+        'created_at',
+        'updated_at'
     ];
 }

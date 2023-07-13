@@ -27,6 +27,9 @@ class UserController extends Controller
         }
     }
 
+
+
+    //for login
     function login(Request $request)
     {
         $input = $request->all();
@@ -36,11 +39,9 @@ class UserController extends Controller
         ]);
 
         if ($validation->fails()) {
-            // dd("Validation failed");
             return response()->json(['error' => $validation->errors()], 422,);
         } else {
             $user = User::where(['email' => $input['email'], 'password' => $input['password']])->first();
-            // dd($user);
 
             if ($user) {
                 $token = $user->createToken('Login_Token')->accessToken;
@@ -86,8 +87,6 @@ class UserController extends Controller
 
     function show_cart($id)
     {
-        // $cart = User::find($id)->with('cart')->get();
-        // $cart= User::find($id)->cart;
         $cart = User::where('id', $id)->with('cart')->get();
         if ($cart) {
             return response()->json($cart, 200);

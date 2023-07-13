@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Address;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class AddressController extends Controller
@@ -26,14 +25,12 @@ class AddressController extends Controller
         } else {
 
             // $address= Address::create($input);
-            $address = DB::table('addresses')->insert(
-                array(
-                    'user_id' => $user_id,
-                    'name' => $input['name'],
-                    'address' => $input['address'],
-                    'pin' => $input['pin']
-                )
-            );
+            $address = Address::create([
+                'user_id' => $user_id,
+                'name' => $input['name'],
+                'address' => $input['address'],
+                'pin' => $input['pin']
+            ]);
             if ($address) {
                 return response()->json($request, 200);
             } else {
@@ -56,15 +53,15 @@ class AddressController extends Controller
             return response()->json(['error' => $validation->errors()]);
         } else {
 
-            $update_address = DB::table('addresses')->where('id', $id)->update(
-                array(
+            $update_address = Address::find($id);
 
-                    'user_id' => $user_id,
-                    'name' => $input['name'],
-                    'address' => $input['address'],
-                    'pin' => $input['pin']
-                )
-            );
+            $update_address->user_id = $user_id;
+            $update_address->name = $input['name'];
+            $update_address->address = $input['address'];
+            $update_address->pin = $input['pin'];
+
+            $update_address->save();
+
 
             if ($update_address) {
                 return response()->json($request, 200);
@@ -78,7 +75,7 @@ class AddressController extends Controller
 
     function delete_address($id)
     {
-        $delete = DB::table('addresses')->where('id', $id)->delete();
+        $delete = Address::find($id)->delete();
         if ($delete) {
             return response()->json(['message' => "Data deleted Successfully"], 200);
         } else {

@@ -13,6 +13,7 @@ class ProductController extends Controller
         if ($id) {
 
             $products = Product::find($id);
+
             if ($products) {
                 return response()->json(['products' => $products], 200);
             } else {
@@ -22,14 +23,13 @@ class ProductController extends Controller
     }
 
     //to get all product data
-    function get_all_product(){
+    function get_all_product()
+    {
+        $products = Product::all();
 
-        $products= Product::all();
-
-        if($products){
+        if ($products) {
             return response()->json(['Success' => $products], 200);
-        }
-        else{
+        } else {
             return response()->json(['error' => $products->errors()], 422);
         }
     }

@@ -15,55 +15,55 @@ use Filament\Tables\Columns\TextInputColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class WishlistResource extends Resource
-{
-    protected static ?string $model = Wishlist::class;
+// class WishlistResource extends Resource
+// {
+//     protected static ?string $model = Wishlist::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-heart';
+//     protected static ?string $navigationIcon = 'heroicon-o-heart';
 
-    public static function form(Form $form): Form
-    {
-        return $form
-            ->schema([
-                TextInput::make('userId'),
-                TextInput::make('product_id')
-            ]);
-    }
+//     public static function form(Form $form): Form
+//     {
+//         return $form
+//             ->schema([
+//                 TextInput::make('userId'),
+//                 TextInput::make('product_id')
+//             ]);
+//     }
 
-    public static function table(Table $table): Table
-    {
-        return $table
-            ->columns([
-                TextInputColumn::make('id'),
-                TextInputColumn::make('userId'),
-                TextInputColumn::make('product_id'),
-                TextInputColumn::make('created_at'),
-                TextInputColumn::make('updated_at')
-            ])
-            ->filters([
-                //
-            ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
-            ]);
-    }
+//     public static function table(Table $table): Table
+//     {
+//         return $table
+//             ->columns([
+//                 TextInputColumn::make('id'),
+//                 TextInputColumn::make('userId'),
+//                 TextInputColumn::make('product_id'),
+//                 TextInputColumn::make('created_at'),
+//                 TextInputColumn::make('updated_at')
+//             ])
+//             ->filters([
+//                 //
+//             ])
+//             ->actions([
+//                 Tables\Actions\EditAction::make(),
+//             ])
+//             ->bulkActions([
+//                 Tables\Actions\DeleteBulkAction::make(),
+//             ]);
+//     }
 
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
+//     public static function getRelations(): array
+//     {
+//         return [
+//             //
+//         ];
+//     }
 
-    public static function getPages(): array
-    {
-        return [
-            'index' => Pages\ListWishlists::route('/'),
-            'create' => Pages\CreateWishlist::route('/create'),
-            'edit' => Pages\EditWishlist::route('/{record}/edit'),
-        ];
-    }
-}
+//     public static function getPages(): array
+//     {
+//         return [
+//             'index' => Pages\ListWishlists::route('/'),
+//             'create' => Pages\CreateWishlist::route('/create'),
+//             'edit' => Pages\EditWishlist::route('/{record}/edit'),
+//         ];
+//     }
+// }

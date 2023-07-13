@@ -11,6 +11,7 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\TextInputColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -38,20 +39,21 @@ class OrderResource extends Resource
     {
         return $table
             ->columns([
-                TextInputColumn::make('id'),
-                TextInputColumn::make('userId'),
-                TextInputColumn::make('product_id'),
-                TextInputColumn::make('address_id'),
-                TextInputColumn::make('cart_id'),
-                TextInputColumn::make('status'),
-                TextInputColumn::make('created_at'),
-                TextInputColumn::make('updated_at')
+                TextColumn::make('id'),
+                TextColumn::make('userId'),
+                TextColumn::make('product_id'),
+                TextColumn::make('address_id'),
+                TextColumn::make('cart_id'),
+                TextColumn::make('status'),
+                TextColumn::make('created_at'),
+                TextColumn::make('updated_at')
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make()->label(''),
+                Tables\Actions\EditAction::make()->label(''),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),

@@ -17,7 +17,10 @@ use Filament\Tables;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Builder;
 
 class ProductResource extends Resource
 {
@@ -67,10 +70,11 @@ class ProductResource extends Resource
                 TextColumn::make('updated_at'),
             ])
             ->filters([
-                //
+                SelectFilter::make('categories')->relationship('category', 'category_name')
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make()->label(''),
+                Tables\Actions\EditAction::make()->label(''),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
