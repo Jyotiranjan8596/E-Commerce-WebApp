@@ -49,7 +49,7 @@ class ProductResource extends Resource
                 TextInput::make('Product_price')->required(),
                 Block::make('product_desc')
                     ->schema([
-                        MarkdownEditor::make('content')
+                        MarkdownEditor::make('product_desc')
                             ->label('Description')
                             ->required(),
                     ]),

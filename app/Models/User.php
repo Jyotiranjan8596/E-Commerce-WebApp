@@ -52,7 +52,7 @@ class User extends Authenticatable implements FilamentUser
     //access to filament
     public function canAccessFilament(): bool
     {
-        return $this->hasRole(['admin', 'Maintainer']);
+        return $this->hasRole(['admin','Maintainer','user']);
     }
 
     //relation with cart

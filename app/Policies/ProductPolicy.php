@@ -13,16 +13,16 @@ class ProductPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasRole(['admin','Maintainer']);
+        return $user->hasRole('admin');
     }
 
     // /**
     //  * Determine whether the user can view the model.
     //  */
-    // public function view(User $user, Product $product): bool
-    // {
-    //     //
-    // }
+    public function view(User $user, Product $product): bool
+    {
+       return $user->hasRole('admin');
+    }
 
     /**
      * Determine whether the user can create models.

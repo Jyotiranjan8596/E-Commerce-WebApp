@@ -33,7 +33,7 @@ class ImageResource extends Resource
         return $form
             ->schema([
                 TextInput::make('product_id'),
-                FileUpload::make('images')->multiple()
+                FileUpload::make('images')->multiple()->directory('product_image')
             ]);
     }
 
@@ -44,6 +44,7 @@ class ImageResource extends Resource
                 TextColumn::make('id'),
                 TextColumn::make('product_id'),
                 ImageColumn::make('images')
+
             ])
             ->filters([
                 //

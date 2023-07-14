@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('parentId')->constrained(table:'parentcatgories',indexName:'parentsId');
             $table->string('category_name');
+            $table->string('slug');
             $table->string('description');
             $table->timestamps();
         });

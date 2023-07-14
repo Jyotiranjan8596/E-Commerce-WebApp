@@ -21,7 +21,7 @@ class PermissionPolicy
      */
     public function view(User $user, Permission $permission): bool
     {
-        //
+        return $user->hasRole(['admin','Maintainer']);
     }
 
     /**
