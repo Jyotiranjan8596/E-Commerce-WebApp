@@ -14,6 +14,6 @@ class Image extends Model
     ];
 
     protected $casts=[
-        'images'=>'array'
+        'images' => 'array'
     ];
 }

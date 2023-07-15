@@ -15,17 +15,16 @@ class UserData extends BaseWidget
     {
         return User::query()->latest();
     }
-
+    protected int | string | array $columnSpan = 'full';
     protected function getTableColumns(): array
     {
         return [
-                TextColumn::make('id'),
-                TextColumn::make('name')->searchable(),
-                TextColumn::make('email'),
+                TextColumn::make('id')->visibleFrom('md'),
+                TextColumn::make('name')->searchable()->visibleFrom('md'),
+                TextColumn::make('email')->visibleFrom('md'),
                 // TextColumn::make('roles'),
-                TextColumn::make('created_at'),
-                TextColumn::make('updated_at')
-
-        ];
+                TextColumn::make('created_at')->visibleFrom('md'),
+                TextColumn::make('updated_at')->visibleFrom('md')
+            ];
     }
 }

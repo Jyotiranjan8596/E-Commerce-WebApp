@@ -40,6 +40,8 @@ class OrderController extends Controller
         }
     }
 
+    //update the order
+
     //for update
     function update_order($id)
     {

@@ -43,7 +43,7 @@ class ImageResource extends Resource
             ->columns([
                 TextColumn::make('id'),
                 TextColumn::make('product_id'),
-                ImageColumn::make('images')
+                ImageColumn::make('product_image')
 
             ])
             ->filters([
